@@ -137,3 +137,33 @@ int cStrU__remove_char(const struct String *strU, const char ch)
 
     return 1;
 }
+
+char **cStrU__split_lines(const char *str)
+{
+    char *arr = (char *)malloc(sizeof(str)*strlen(str));
+    memset(arr, '\0', sizeof(arr));
+
+    char c[5];          memset(c, '\0', sizeof(c));
+    char temp[1024];    memset(temp, '\0', sizeof(temp));
+
+    int lines = 0;
+    for(int i = 0; i <= strlen(str); i++)
+    {
+
+        if(str[i] == '\n' || str[i] == '\0')
+        {
+            arr[lines] = (char *)malloc(sizeof(temp)*strlen(temp));
+            strcpy(arr, temp);
+            memset(temp, '\0', sizeof(temp));
+            lines++;
+        }
+
+        if(str[i] != '\n')
+        {
+            memset(c, '\0', sizeof(c)); sprintf(c, "%c", str[i]);
+            strcat(temp, c);
+        }
+    }
+
+    return arr;
+}

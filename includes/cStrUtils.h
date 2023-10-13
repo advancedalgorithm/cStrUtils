@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "cStrUtils.c"
+#include "cArray.c"
 
 enum STRING_EDIT_TYPES;
 typedef struct String;
@@ -12,15 +13,46 @@ int cStrU__Trim(const struct String *strU);
 int cStrU__CountLines(const struct String *strU);
 int cStrU__replace_char(const struct String *strU, const char ch, char *replacement);
 int cStrU__remove_char(const struct String *strU, const char ch);
+char **cStrU__split_lines(const char *str);
 
 typedef struct cStr
 {
     String     *Data;
+    /*
+        enum STRING_EDIT_TYPES *new = NEW_STRING;
+        cStr->edit(cStrU->Data, "NEW STRING", new);
+
+        enum STRING_EDIT_TYPES *append = APPEND_TO_STRING;
+        cStr->edit(cStrU->Data, "ADD", append);
+    */
     void       (*edit)(const struct String *, const char *, enum STRING_EDIT_TYPES *);
+    /*
+        cStr->replace_char(cStrU->Data, ':', ' ');
+    */
     int        (*replace_char)(const struct String *, const char, char *);
+    /*
+        cStr->remove_char(cStrU->Data, '\n');
+    */
     int        (*remove_char)(const struct String *, const char ch);
+
+    /*
+        cStr->trim_whitespaces(cStrU->Data)
+    */
     int        (*trim_whitespaces)(const String *);
+
+    /*
+        cStr->split_lines(DATA);
+    */
+    char       *(*split_lines)(const char *str);
+
+    /*
+        cStr->count_lines(cStrU->Data);
+    */
     int        (*count_lines)(const struct String *);
+
+    /*
+        cStru->die(cStrU);
+    */
     void       (*die)(const struct cStr *); 
 } cStr;
 
