@@ -5,4 +5,9 @@
 
 #include "cArray.c"
 
-typedef struct Array;
+typedef struct cArray
+{
+    char **arr;
+} cArray;
+
+

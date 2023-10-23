@@ -14,6 +14,7 @@ int cStrU__CountLines(const struct String *strU);
 int cStrU__replace_char(const struct String *strU, const char ch, char *replacement);
 int cStrU__remove_char(const struct String *strU, const char ch);
 char **cStrU__split_lines(const char *str);
+char **cStrU__split_string_w_char(const struct String *strU, const char *ch);
 
 typedef struct cStr
 {
@@ -26,10 +27,12 @@ typedef struct cStr
         cStr->edit(cStrU->Data, "ADD", append);
     */
     void       (*edit)(const struct String *, const char *, enum STRING_EDIT_TYPES *);
+    
     /*
         cStr->replace_char(cStrU->Data, ':', ' ');
     */
     int        (*replace_char)(const struct String *, const char, char *);
+
     /*
         cStr->remove_char(cStrU->Data, '\n');
     */
@@ -44,6 +47,11 @@ typedef struct cStr
         cStr->split_lines(DATA);
     */
     char       *(*split_lines)(const char *str);
+
+    /*
+        cStr->split_string_w_char()
+    */
+   char        *(*split_string_w_char)(const struct String *, const char *ch);
 
     /*
         cStr->count_lines(cStrU->Data);
@@ -69,6 +77,8 @@ cStr *create_string(char *str)
 
     strU->die = __close_string;
     strU->edit = cStrU__edit;
+    strU->split_lines = cStrU__split_lines;
+    strU->split_string_w_char = cStrU__split_string_w_char;
     strU->remove_char = cStrU__remove_char;
     strU->replace_char = cStrU__replace_char;
     strU->trim_whitespaces = cStrU__Trim;

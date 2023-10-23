@@ -16,14 +16,14 @@ int main()
     cStrU->trim_whitespaces(cStrU->Data);
     printf("(cStrU->trim_whitespaces(cStrU->Data)): %s\n", cStrU->Data->buffer);
 
-    cStrU->replace_char(cStrU->Data, ',', ' ');
+    cStrU->replace_char(cStrU->Data, '/', ' ');
     printf("(cStrU->replace_char(cStrU->Data, ',', ' ')): %s\n", cStrU->Data->buffer);
 
-    cStrU->remove_char(cStrU->Data, '-');
+    cStrU->remove_char(cStrU->Data, '/');
     printf("(cStrU->remove_char(cStrU->Data, '-')): %s\n", cStrU->Data->buffer);
 
-    enum STRING_EDIT_TYPE *g = NEW_STRING;
-    cStrU->edit(cStrU->Data, "NEW", g);
+    enum STRING_EDIT_TYPE *g = APPEND_TO_STRING;
+    cStrU->edit(cStrU->Data, "NEW STRING", g);
     printf("(cStrU->edit(cStrU->Data, \"NEW\", g)): %s\n", cStrU->Data->buffer);
 
     int lines = cStrU->count_lines(cStrU->Data);

@@ -167,3 +167,34 @@ char **cStrU__split_lines(const char *str)
 
     return arr;
 }
+
+char **cStrU__split_string_w_char(const struct String *strU, const char *ch)
+{
+
+    char **new = (char **)malloc(sizeof(strU->buffer)*strlen(strU->buffer));
+    memset(new, '\0', sizeof(new));
+
+    char c[5];          memset(c, '\0', sizeof(c));
+    char temp[1024];    memset(temp, '\0', sizeof(temp));
+
+    int lines = 0;
+    for(int i = 0; i <= strlen(strU->buffer); i++)
+    {
+
+        if(strU->buffer[i] == ch || strU->buffer[i] == '\0')
+        {
+            new[lines] = (char *)malloc(sizeof(temp)*strlen(temp));
+            strcpy(new[lines], temp);
+            memset(temp, '\0', sizeof(temp));
+            lines++;
+        }
+
+        if(strU->buffer[i] != ch)
+        {
+            memset(c, '\0', sizeof(c)); sprintf(c, "%c", strU->buffer[i]);
+            strcat(temp, c);
+        }
+    }
+
+    return new;
+}
